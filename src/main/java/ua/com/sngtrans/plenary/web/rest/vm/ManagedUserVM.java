@@ -1,0 +1,47 @@
+package ua.com.sngtrans.plenary.web.rest.vm;
+
+import ua.com.sngtrans.plenary.domain.Branch;
+import ua.com.sngtrans.plenary.domain.Company;
+import ua.com.sngtrans.plenary.service.dto.UserDTO;
+import javax.validation.constraints.Size;
+
+import java.time.Instant;
+import java.util.Set;
+
+/**
+ * View Model extending the UserDTO, which is meant to be used in the user management UI.
+ */
+public class ManagedUserVM extends UserDTO {
+
+    public static final int PASSWORD_MIN_LENGTH = 4;
+
+    public static final int PASSWORD_MAX_LENGTH = 100;
+
+    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
+    private String password;
+
+    public ManagedUserVM() {
+        // Empty constructor needed for Jackson.
+    }
+
+    public ManagedUserVM(Long id, String login, String password, String firstName, String middleName, String lastName,
+                         String email, boolean activated, String imageUrl, String langKey,
+                         String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+                        Set<String> authorities,  Long companyId, String companyFullName, Long branchId, String branchFullName) {
+
+        super(id, login, firstName, middleName, lastName, email, activated, imageUrl, langKey,
+            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities, companyId, companyFullName, branchId, branchFullName);
+
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String toString() {
+        return "ManagedUserVM{" +
+            "} " + super.toString();
+    }
+}
